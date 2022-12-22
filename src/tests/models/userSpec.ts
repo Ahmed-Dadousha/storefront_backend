@@ -45,7 +45,7 @@ describe('User Model', () => {
 		await deleteUser(createdUser.id);
 	});
 
-	it(' should return a list of users', async () => {
+	it('should return a list of users', async () => {
 		const createdUser: User = await createUser(user);
 		const users = await user_store.index();
 
@@ -73,7 +73,7 @@ describe('User Model', () => {
 		expect(users).toEqual([]);
 	});
 
-	it(' should update the user', async () => {
+	it('should update the user', async () => {
 		const createdUser: User = await createUser(user);
 		const newUserData: BaseUser = {
 			firstname: 'ali',

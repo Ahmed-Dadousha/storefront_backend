@@ -32,7 +32,7 @@ describe('Product Model', () => {
 		expect(product_store.deleteProduct).toBeDefined();
 	});
 
-	it(' should add a product', async () => {
+	it('should add a product', async () => {
 		const createdProduct: Product = await createProduct(product);
 
 		expect(createdProduct.price).toEqual(product.price);
@@ -41,7 +41,7 @@ describe('Product Model', () => {
 		await deleteProduct(createdProduct.id);
 	});
 
-	it(' should return a list of products', async () => {
+	it('should return a list of products', async () => {
 		const createdProduct: Product = await createProduct(product);
 		const allProducts = await product_store.index();
 

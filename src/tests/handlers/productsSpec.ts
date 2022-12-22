@@ -11,18 +11,18 @@
 
 // describe('Product Handler', () => {
 // 	const product: BaseProduct = {
-// 		name: 'CodeMaster 3000',
-// 		price: 999,
+// 		name: 'msi modern 14',
+// 		price: 10000,
 // 	};
 
 // 	let token: string, userId: number, productId: number;
 
 // 	beforeAll(async () => {
 // 		const userData: BaseAuthUser = {
-// 			username: 'produkttester',
-// 			firstname: 'Produkt',
-// 			lastname: 'Tester',
-// 			password: 'password123',
+// 			username: 'marco',
+// 			firstname: 'mikasa',
+// 			lastname: 'akraman',
+// 			password: 'pass1',
 // 		};
 
 // 		const { body } = await request.post('/users/create').send(userData);
