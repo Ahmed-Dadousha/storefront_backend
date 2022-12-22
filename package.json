@@ -9,7 +9,8 @@
 		"watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
 		"build": "npx tsc",
 		"lint": "eslint src/**/*.ts",
-		"prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
+		"prettier": "prettier --config .prettierrc 'src/**/*.ts' --write",
+		"start": " npm run build &&  node ./dist/server.js"
 	},
 	"keywords": [
 		"Udacity",

@@ -3,11 +3,11 @@ import { UserStore } from '../models/user';
 import { User } from '../interfaces/user.interface';
 import { AuthHeader, getTokenByUser } from './authentication';
 
-const UserStoreInstance = new UserStore();
+const user_store = new UserStore();
 
 const index = async (req: Request, res: Response) => {
 	try {
-		const users: User[] = await UserStoreInstance.index();
+		const users: User[] = await user_store.index();
 
 		res.json(users);
 	} catch (e) {
@@ -31,12 +31,12 @@ const create = async (req: Request, res: Response) => {
 		) {
 			res.status(400);
 			res.send(
-				'Some required parameters are missing! eg. :firstname, :lastname, :username, :password'
+				'parameters  eg. :firstname, :lastname, :username, :password are missing!'
 			);
 			return false;
 		}
 
-		const user: User = await UserStoreInstance.create({
+		const user: User = await user_store.create({
 			firstname,
 			lastname,
 			username,
@@ -50,7 +50,7 @@ const create = async (req: Request, res: Response) => {
 	}
 };
 
-const read = async (req: Request, res: Response) => {
+const show = async (req: Request, res: Response) => {
 	try {
 		const id = req.params.id as unknown as number;
 
@@ -60,7 +60,7 @@ const read = async (req: Request, res: Response) => {
 			return false;
 		}
 
-		const user: User = await UserStoreInstance.show(id);
+		const user: User = await user_store.show(id);
 
 		res.json(user);
 	} catch (e) {
@@ -77,13 +77,11 @@ const update = async (req: Request, res: Response) => {
 
 		if (firstname === undefined || lastname === undefined || id === undefined) {
 			res.status(400);
-			res.send(
-				'Some required parameters are missing! eg. :firstname, :lastname, :id'
-			);
+			res.send('parameters  eg. :firstname, :lastname, :id are missing!');
 			return false;
 		}
 
-		const user: User = await UserStoreInstance.update(id, {
+		const user: User = await user_store.update(id, {
 			firstname,
 			lastname,
 		});
@@ -105,7 +103,7 @@ const deleteUser = async (req: Request, res: Response) => {
 			return false;
 		}
 
-		await UserStoreInstance.deleteUser(id);
+		await user_store.deleteUser(id);
 
 		res.send(`User with id ${id} successfully deleted.`);
 	} catch (e) {
@@ -121,18 +119,13 @@ const authenticate = async (req: Request, res: Response) => {
 
 		if (username === undefined || password === undefined) {
 			res.status(400);
-			res.send(
-				'Some required parameters are missing! eg. :username, :password'
-			);
+			res.send('parameters  :username, :password are missing!');
 			return false;
 		}
 
-		const user: User | null = await UserStoreInstance.authenticate(
-			username,
-			password
-		);
-
-		if (user === null) {
+		const user: User | null = await user_store.authenticate(username, password);
+		console.log(user);
+		if (!user) {
 			res.status(401);
 			res.send(`Wrong password for user ${username}.`);
 
@@ -149,7 +142,7 @@ const authenticate = async (req: Request, res: Response) => {
 export default function userRoutes(app: Application) {
 	app.get('/users', AuthHeader, index);
 	app.post('/users/create', create);
-	app.get('/users/:id', AuthHeader, read);
+	app.get('/users/:id', AuthHeader, show);
 	app.put('/users/:id', AuthHeader, update);
 	app.delete('/users/:id', AuthHeader, deleteUser);
 	app.post('/users/auth', authenticate);

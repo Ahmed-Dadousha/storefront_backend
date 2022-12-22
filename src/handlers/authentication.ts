@@ -2,8 +2,6 @@ import jwt from 'jsonwebtoken';
 import express from 'express';
 import { User } from '../interfaces/user.interface';
 
-// console.log(process.env.SECRET_TOKEN);
-
 export const getTokenByUser = (user: User) => {
 	return jwt.sign({ user }, process.env.SECRET_TOKEN as string);
 };
@@ -22,7 +20,6 @@ export const AuthHeader = (
 
 	try {
 		const token = req.headers.authorization.split(' ')[1];
-		console.log(token);
 		jwt.verify(token, process.env.SECRET_TOKEN as string);
 
 		next();

@@ -103,7 +103,7 @@ export class UserStore {
 
 			if (result.rows[0].length) {
 				const user = result.rows[0];
-
+				console.log(user);
 				if (
 					bcrypt.compareSync(
 						password + process.env.BCRYPT_PASSWORD,

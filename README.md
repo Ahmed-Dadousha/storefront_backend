@@ -2,32 +2,34 @@
 
 ## Prepare env
 
-- add a `.env` file in the root directory and set the missing `###` environment parameters
+- add a `.env` file in the root directory and set the missing `...` environment parameters
 
 ```
 # DB VARIABLES
 POSTGRES_HOST=localhost
-POSTGRES_DB_DEV=
-POSTGRES_DB_TEST=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
+POSTGRES_DB_DEV=...
+POSTGRES_DB_TEST=...
+POSTGRES_USER=...
+POSTGRES_PASSWORD=...
 ENV=dev
 # BCRYPT VARIABLES
-BCRYPT_PASSWORD=
+BCRYPT_PASSWORD=....
 SALT_ROUNDS=10
 # JWT
-SECRET_TOKEN=
+SECRET_TOKEN=...
 ```
 
 ## Set up
 
 - `npm i` to install all dependencies
-- `npm run migrate` to set up the database and get access via http://127.0.0.1:3000
+- `db-migrate up` to connect to database and create the tables in it
 - `npm run build` to build the app
 
 ## Start the app
 
-- `npm run watch` to start the app and get access via http://127.0.0.1:3000
+- `npm run start` to start the app and get access http://127.0.0.1:3000
+- the app will run on port `3000`
+- the database will run on port `5432`
 
 ## Test the app
 
