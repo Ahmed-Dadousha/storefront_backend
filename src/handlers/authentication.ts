@@ -22,8 +22,12 @@ export const AuthHeader = (
 
 	try {
 		const token = req.headers.authorization.split(' ')[1];
-
+		console.log(token);
 		jwt.verify(token, process.env.TOKEN_SECRET as string);
+
+		// const authorizationHeader = req.headers.authorization;
+		// const token = authorizationHeader.split(' ')[1];
+		// jwt.verify(token, process.env.SECRET_TOKEN as unknown as string);
 
 		next();
 	} catch (err) {

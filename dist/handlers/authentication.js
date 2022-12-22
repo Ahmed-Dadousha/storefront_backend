@@ -17,8 +17,12 @@ var AuthHeader = function (req, res, next) {
         return false;
     }
     try {
-        var token = req.headers.authorization.split(' ')[1];
-        jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+        // const token = req.headers.authorization.split(' ')[1];
+        // console.log(token);
+        // jwt.verify(token, process.env.TOKEN_SECRET as string);
+        var authorizationHeader = req.headers.authorization;
+        var token = authorizationHeader.split(' ')[1];
+        jsonwebtoken_1["default"].verify(token, process.env.SECRET_TOKEN);
         next();
     }
     catch (err) {

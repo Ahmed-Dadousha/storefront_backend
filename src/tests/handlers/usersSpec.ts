@@ -15,7 +15,7 @@
 // 		password: 'password5555',
 // 	};
 
-// 	let token: string,
+// 	let token: string = SECRET as string,
 // 		userId: number = 1;
 
 // 	it('should require authorization on every endpoint', async (done) => {
@@ -46,32 +46,32 @@
 // 		});
 // 	});
 
-// 	// it('gets the create endpoint', (done) => {
-// 	// 	request
-// 	// 		.post('/users/create')
-// 	// 		.send(userData)
-// 	// 		.then((res) => {
-// 	// 			const { body, status } = res;
-// 	// 			token = body;
-// 	// 			console.log(SECRET);
-// 	// 			// @ts-ignore
-// 	// 			const { user } = jwt.verify(token.toString(), SECRET);
-// 	// 			userId = user.id;
+// it('gets the create endpoint', (done) => {
+// 	request
+// 		.post('/users/create')
+// 		.send(userData)
+// 		.then((res) => {
+// 			const { body, status } = res;
+// 			token = body;
+// 			console.log(SECRET);
+// 			// @ts-ignore
+// 			const { user } = jwt.verify(token.toString(), SECRET);
+// 			userId = user.id;
 
-// 	// 			expect(status).toBe(200);
-// 	// 			done();
-// 	// 		});
-// 	// });
+// 			expect(status).toBe(200);
+// 			done();
+// 		});
+// });
 
-// 	// 	it('gets the index endpoint', (done) => {
-// 	// 		request
-// 	// 			.get('/users')
-// 	// 			.set('Authorization', 'bearer ' + token)
-// 	// 			.then((res) => {
-// 	// 				expect(res.status).toBe(200);
-// 	// 				done();
-// 	// 			});
-// 	// 	});
+// it('gets the index endpoint', (done) => {
+// 	request
+// 		.get('/users')
+// 		.set('Authorization', 'bearer ' + token)
+// 		.then((res) => {
+// 			expect(res.status).toBe(200);
+// 			done();
+// 		});
+// });
 
 // 	// 	it('gets the read endpoint', (done) => {
 // 	// 		request

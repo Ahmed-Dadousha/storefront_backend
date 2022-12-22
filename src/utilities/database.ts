@@ -17,7 +17,7 @@ let client = new Pool();
 if (ENV === 'dev') {
 	client = new Pool({
 		host: POSTGRES_HOST,
-		database: POSTGRES_DB_TEST,
+		database: POSTGRES_DB_DEV,
 		user: POSTGRES_USER,
 		password: POSTGRES_PASSWORD,
 	});
@@ -26,7 +26,7 @@ if (ENV === 'dev') {
 if (ENV === 'test') {
 	client = new Pool({
 		host: POSTGRES_HOST,
-		database: POSTGRES_DB_DEV,
+		database: POSTGRES_DB_TEST,
 		user: POSTGRES_USER,
 		password: POSTGRES_PASSWORD,
 	});
