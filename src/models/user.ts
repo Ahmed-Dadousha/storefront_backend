@@ -100,20 +100,15 @@ export class UserStore {
 			const sql = 'SELECT * FROM users WHERE username=($1)';
 			const connection = await client.connect();
 			const result = await connection.query(sql, [username]);
-
-			if (result.rows[0].length) {
-				const user = result.rows[0];
-				console.log(user);
-				if (
-					bcrypt.compareSync(
-						password + process.env.BCRYPT_PASSWORD,
-						user.password_digest
-					)
-				) {
-					return user;
-				}
+			const user = result.rows[0];
+			if (
+				bcrypt.compareSync(
+					password + process.env.BCRYPT_PASSWORD,
+					user.password_digest
+				)
+			) {
+				return user;
 			}
-
 			connection.release();
 
 			return null;

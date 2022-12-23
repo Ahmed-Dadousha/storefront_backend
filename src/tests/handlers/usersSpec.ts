@@ -18,8 +18,8 @@ describe('User Handler', () => {
 	let token: string,
 		userId: number = 1;
 
-	it('gets the  create endpoint', async (done) => {
-		await request
+	it('gets the  create endpoint', (done) => {
+		request
 			.post('/users/create')
 			.send(userData)
 			.then((res) => {
@@ -27,7 +27,7 @@ describe('User Handler', () => {
 				token = body;
 
 				// @ts-ignore
-				const { user } = jwt.verify(token.toString(), SECRET);
+				const { user } = jwt.verify(token, SECRET);
 				userId = user.id;
 
 				expect(status).toBe(200);
@@ -42,8 +42,8 @@ describe('User Handler', () => {
 		expect(response.status).toBe(200);
 		done();
 	});
-	it('gets the read endpoint', async (done) => {
-		await request
+	it('gets the read endpoint', (done) => {
+		request
 			.get(`/users/${userId}`)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
@@ -52,14 +52,14 @@ describe('User Handler', () => {
 			});
 	});
 
-	it('gets the update endpoint', async (done) => {
+	it('gets the update endpoint', (done) => {
 		const newUserData: BaseAuthUser = {
 			...userData,
 			firstname: 'maged',
 			lastname: 'ali',
 		};
 
-		await request
+		request
 			.put(`/users/${userId}`)
 			.send(newUserData)
 			.set('Authorization', 'bearer ' + token)
@@ -69,22 +69,35 @@ describe('User Handler', () => {
 			});
 	});
 
-	it('gets the auth endpoint', async (done) => {
-		await request
+	it('gets the auth endpoint', (done) => {
+		request
 			.post('/users/auth')
 			.send({
 				username: userData.username,
 				password: userData.password,
 			})
-			.set('Authorization', 'bearer ' + token)
+			.set('Authorization', 'bearer ' + token.toString())
 			.then((res) => {
 				expect(res.status).toBe(200);
 				done();
 			});
 	});
+	it('gets the auth endpoint with wrong password', (done) => {
+		request
+			.post('/users/auth')
+			.send({
+				username: userData.username,
+				password: 'asfdf123',
+			})
+			.set('Authorization', 'bearer ' + token.toString())
+			.then((res) => {
+				expect(res.status).toBe(401);
+				done();
+			});
+	});
 
-	it('gets the delete endpoint', async (done) => {
-		await request
+	it('gets the delete endpoint', (done) => {
+		request
 			.delete(`/users/${userId}`)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {

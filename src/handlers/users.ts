@@ -124,7 +124,6 @@ const authenticate = async (req: Request, res: Response) => {
 		}
 
 		const user: User | null = await user_store.authenticate(username, password);
-		console.log(user);
 		if (!user) {
 			res.status(401);
 			res.send(`Wrong password for user ${username}.`);
