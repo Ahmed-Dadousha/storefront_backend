@@ -23,7 +23,7 @@ describe('Product Handler', () => {
 			password: 'pass1',
 		};
 
-		const { body } = await request.post('/users/create').send(userData);
+		const { body } = await request.post('/api/users/create').send(userData);
 
 		token = body;
 
@@ -34,13 +34,13 @@ describe('Product Handler', () => {
 
 	afterAll(async () => {
 		await request
-			.delete(`/users/${userId}`)
+			.delete(`/api/users/${userId}`)
 			.set('Authorization', 'bearer ' + token);
 	});
 
 	it('gets the create endpoint', async (done) => {
 		await request
-			.post('/products/create')
+			.post('/api/products/create')
 			.send(product)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
@@ -55,14 +55,14 @@ describe('Product Handler', () => {
 	});
 
 	it('gets the index endpoint', async (done) => {
-		await request.get('/products').then((res) => {
+		await request.get('/api/products').then((res) => {
 			expect(res.status).toBe(200);
 			done();
 		});
 	});
 
 	it('gets the read endpoint', async (done) => {
-		await request.get(`/products/${productId}`).then((res) => {
+		await request.get(`/api/products/${productId}`).then((res) => {
 			expect(res.status).toBe(200);
 			done();
 		});
@@ -76,7 +76,7 @@ describe('Product Handler', () => {
 		};
 
 		await request
-			.put(`/products/${productId}`)
+			.put(`/api/products/${productId}`)
 			.send(newProductData)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
@@ -87,7 +87,7 @@ describe('Product Handler', () => {
 
 	it('gets the delete endpoint', async (done) => {
 		await request
-			.delete(`/products/${productId}`)
+			.delete(`/api/products/${productId}`)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
 				expect(res.status).toBe(200);

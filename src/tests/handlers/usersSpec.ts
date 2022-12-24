@@ -20,7 +20,7 @@ describe('User Handler', () => {
 
 	it('gets the  create endpoint', (done) => {
 		request
-			.post('/users/create')
+			.post('/api/users/create')
 			.send(userData)
 			.then((res) => {
 				const { body, status } = res;
@@ -37,14 +37,14 @@ describe('User Handler', () => {
 
 	it('gets the index endpoint', async (done) => {
 		const response = await request
-			.get('/users')
+			.get('/api/users')
 			.set('Authorization', 'bearer ' + token);
 		expect(response.status).toBe(200);
 		done();
 	});
 	it('gets the read endpoint', (done) => {
 		request
-			.get(`/users/${userId}`)
+			.get(`/api/users/${userId}`)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
 				expect(res.status).toBe(200);
@@ -60,7 +60,7 @@ describe('User Handler', () => {
 		};
 
 		request
-			.put(`/users/${userId}`)
+			.put(`/api/users/${userId}`)
 			.send(newUserData)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
@@ -71,7 +71,7 @@ describe('User Handler', () => {
 
 	it('gets the auth endpoint', (done) => {
 		request
-			.post('/users/auth')
+			.post('/api/users/auth')
 			.send({
 				username: userData.username,
 				password: userData.password,
@@ -82,9 +82,10 @@ describe('User Handler', () => {
 				done();
 			});
 	});
+
 	it('gets the auth endpoint with wrong password', (done) => {
 		request
-			.post('/users/auth')
+			.post('/api/users/auth')
 			.send({
 				username: userData.username,
 				password: 'asfdf123',
@@ -98,7 +99,7 @@ describe('User Handler', () => {
 
 	it('gets the delete endpoint', (done) => {
 		request
-			.delete(`/users/${userId}`)
+			.delete(`/api/users/${userId}`)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
 				expect(res.status).toBe(200);

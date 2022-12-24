@@ -29,7 +29,7 @@ describe('Order Handler', () => {
 		};
 
 		const { body: userBody } = await request
-			.post('/users/create')
+			.post('/api/users/create')
 			.send(userData);
 
 		token = userBody;
@@ -39,7 +39,7 @@ describe('Order Handler', () => {
 		user_id = user.id;
 
 		const { body: productBody } = await request
-			.post('/products/create')
+			.post('/api/products/create')
 			.set('Authorization', 'bearer ' + token)
 			.send(productData);
 		product_id = productBody.id;
@@ -58,16 +58,16 @@ describe('Order Handler', () => {
 
 	afterAll(async () => {
 		await request
-			.delete(`/users/${user_id}`)
+			.delete(`/api/users/${user_id}`)
 			.set('Authorization', 'bearer ' + token);
 		await request
-			.delete(`/products/${product_id}`)
+			.delete(`/api/products/${product_id}`)
 			.set('Authorization', 'bearer ' + token);
 	});
 
 	it('gets the create endpoint', async (done) => {
 		await request
-			.post('/orders/create')
+			.post('/api/orders/create')
 			.send(order)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
@@ -83,7 +83,7 @@ describe('Order Handler', () => {
 
 	it('gets the index endpoint', async (done) => {
 		await request
-			.get('/orders')
+			.get('/api/orders')
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
 				expect(res.status).toBe(200);
@@ -93,7 +93,7 @@ describe('Order Handler', () => {
 
 	it('gets the read endpoint', async (done) => {
 		await request
-			.get(`/orders/${order_id}`)
+			.get(`/api/orders/${order_id}`)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
 				expect(res.status).toBe(200);
@@ -108,7 +108,7 @@ describe('Order Handler', () => {
 		};
 
 		await request
-			.put(`/orders/${order_id}`)
+			.put(`/api/orders/${order_id}`)
 			.send(newOrder)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
@@ -119,7 +119,7 @@ describe('Order Handler', () => {
 
 	it('gets the delete endpoint', async (done) => {
 		await request
-			.delete(`/orders/${order_id}`)
+			.delete(`/api/orders/${order_id}`)
 			.set('Authorization', 'bearer ' + token)
 			.then((res) => {
 				expect(res.status).toBe(200);

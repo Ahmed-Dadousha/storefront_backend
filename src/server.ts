@@ -1,17 +1,12 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import orderRoutes from './handlers/orders';
-import productRoutes from './handlers/product';
-import userRoutes from './handlers/users';
-
+import apiRouter from './routes';
 const app: express.Application = express();
 const address: string = '127.0.0.1:3000';
 
 app.use(bodyParser.json());
 
-orderRoutes(app);
-productRoutes(app);
-userRoutes(app);
+app.use('/api', apiRouter);
 
 app.get('/', function (req: Request, res: Response) {
 	res.send('Hello World!');
