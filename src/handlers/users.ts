@@ -146,12 +146,3 @@ export default class userHandler {
 		}
 	};
 }
-
-// export default function userRoutes(app: Application) {
-// 	app.get('/users', AuthHeader, index);
-// 	app.post('/users/create', create);
-// 	app.get('/users/:id', AuthHeader, show);
-// 	app.put('/users/:id', AuthHeader, update);
-// 	app.delete('/users/:id', AuthHeader, deleteUser);
-// 	app.post('/users/auth', authenticate);
-// }
