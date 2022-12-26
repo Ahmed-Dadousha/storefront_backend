@@ -5,6 +5,7 @@ import app from '../../server';
 import { BaseOrder } from '../../interfaces/order.interface';
 import { BaseAuthUser } from '../../interfaces/user.interface';
 import { BaseProduct } from '../../interfaces/product.interface';
+import client from '../../utilities/database';
 
 const request = supertest(app);
 const SECRET = process.env.SECRET_TOKEN as Secret;
@@ -63,6 +64,11 @@ describe('Order Handler', () => {
 		await request
 			.delete(`/api/products/${product_id}`)
 			.set('Authorization', 'bearer ' + token);
+		const conn = await client.connect();
+		const sql: string =
+			'DELETE FROM users;\n ALTER SEQUENCE users_id_seq RESTART WITH 1;\n DELETE FROM products;\n ALTER SEQUENCE products_id_seq RESTART WITH 1;\n DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\n';
+		await conn.query(sql);
+		conn.release();
 	});
 
 	it('gets the create endpoint', async (done) => {

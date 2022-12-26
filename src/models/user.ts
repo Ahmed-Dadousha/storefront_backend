@@ -36,7 +36,6 @@ export class UserStore {
 			]);
 
 			connection.release();
-
 			return result.rows[0];
 		} catch (err) {
 			throw new Error(

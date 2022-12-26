@@ -4,6 +4,7 @@ import { ProductStore } from '../../models/product';
 import { BaseOrder, Order } from '../../interfaces/order.interface';
 import { User } from '../../interfaces/user.interface';
 import { Product } from '../../interfaces/product.interface';
+import client from '../../utilities/database';
 
 const order_store = new OrderStore();
 
@@ -53,6 +54,12 @@ describe('Order Model', () => {
 	afterAll(async () => {
 		await user_store.deleteUser(user_id);
 		await product_store.deleteProduct(product_id);
+
+		const conn = await client.connect();
+		const sql: string =
+			'DELETE FROM users;\n ALTER SEQUENCE users_id_seq RESTART WITH 1;\n DELETE FROM products;\n ALTER SEQUENCE products_id_seq RESTART WITH 1;\n DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\n';
+		await conn.query(sql);
+		conn.release();
 	});
 
 	it('should have an index method', () => {

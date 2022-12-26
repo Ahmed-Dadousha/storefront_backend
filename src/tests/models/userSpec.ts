@@ -1,5 +1,6 @@
 import { UserStore } from '../../models/user';
 import { BaseAuthUser, BaseUser, User } from '../../interfaces/user.interface';
+import client from '../../utilities/database';
 
 const user_store = new UserStore();
 
@@ -18,6 +19,13 @@ describe('User Model', () => {
 	const deleteUser = (id: number) => {
 		return user_store.deleteUser(id);
 	};
+
+	afterAll(async () => {
+		const conn = await client.connect();
+		const sql = 'DELETE FROM users;ALTER SEQUENCE users_id_seq RESTART WITH 1;';
+		await conn.query(sql);
+		conn.release();
+	});
 
 	it('should have an index method', () => {
 		expect(user_store.index).toBeDefined();

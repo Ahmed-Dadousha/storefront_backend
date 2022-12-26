@@ -26,7 +26,6 @@ export class ProductStore {
 			const result = await conn.query(sql, [product.name, product.price]);
 
 			conn.release();
-
 			return result.rows[0];
 		} catch (err) {
 			throw new Error(`Can not create new product ${product.name}. ${err}`);

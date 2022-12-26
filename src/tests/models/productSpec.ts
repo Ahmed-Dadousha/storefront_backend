@@ -1,5 +1,6 @@
 import { ProductStore } from '../../models/product';
 import { BaseProduct, Product } from '../../interfaces/product.interface';
+import client from '../../utilities/database';
 const product_store = new ProductStore();
 
 describe('Product Model', () => {
@@ -15,6 +16,14 @@ describe('Product Model', () => {
 	const deleteProduct = (id: number) => {
 		return product_store.deleteProduct(id);
 	};
+
+	afterAll(async () => {
+		const conn = await client.connect();
+		const sql =
+			'DELETE FROM products;ALTER SEQUENCE products_id_seq RESTART WITH 1;';
+		await conn.query(sql);
+		conn.release();
+	});
 
 	it('should have an index method', () => {
 		expect(product_store.index).toBeDefined();

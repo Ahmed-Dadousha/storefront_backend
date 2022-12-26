@@ -50,7 +50,6 @@ export class OrderStore {
 					product.product_id,
 					product.quantity,
 				]);
-
 				orderProducts.push(result2.rows[0]);
 			}
 
